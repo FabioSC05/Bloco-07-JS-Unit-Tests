@@ -93,6 +93,54 @@
 // - retornará o valor somado acrescido de 10%.
 // DICA: para isso, você precisará percorrer tanto o objeto da chave `food` quanto o objeto da chave `drink`.
 
-const createMenu = () => {};
+const restaurant = {
+  fetchMenu: {},
+  consumption: [],
+  order: {},
+  pay: {},
+};
+
+const orderFromMenu = (request) => {
+  restaurant.consumption.push(request);
+  return undefined;
+};
+
+let ifElseFood = (order, index, index2) => {
+  let result = 0;
+  if (order[index] === Object.keys(restaurant.fetchMenu().food)[index2]) {
+    result += Object.values(restaurant.fetchMenu().food)[index2];
+  }
+  return result;
+};
+
+let ifElseDrink = (order, index, index2) => {
+  let result = 0;
+  if (order[index] === Object.keys(restaurant.fetchMenu().drink)[index2]) {
+    result += Object.values(restaurant.fetchMenu().drink)[index2];
+  }
+  return result;
+};
+
+const payment = () => {
+  const order = restaurant.consumption;
+  let result = 0;
+  for (let index = 0; index < order.length; index += 1) {
+    for (let index2 = 0; index2 < Object.keys(restaurant.fetchMenu().food).length; index2 += 1) {
+      result += ifElseFood(order, index, index2);
+    }
+    for (let index2 = 0; index2 < Object.keys(restaurant.fetchMenu().drink).length; index2 += 1) {
+      result += ifElseDrink(order, index, index2);
+    }
+  }
+  return (result * 0.1) + result;
+};
+
+const createMenu = (myMenu) => {
+  const menu = () => myMenu;
+  restaurant.fetchMenu = menu;
+  restaurant.order = orderFromMenu;
+  restaurant.pay = payment;
+  return restaurant;
+};
 
 module.exports = createMenu;

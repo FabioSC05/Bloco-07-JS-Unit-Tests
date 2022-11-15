@@ -9,14 +9,13 @@
     - mult: retorna o resultado da multiplicação dos dois números;
     - div: retorna o resultado da divisão dos dois números;
     - sub: retorna o resultado da subtração dos dois números.
-
   Os resultados das divisões devem sempre ser arredondados para baixo.
 
   Parâmetros:
   - Dois números inteiros.
 
   Comportamento:
-  calculator(1, 2); // { sum: 3, mult: 2, div: 0, sub: -1 }
+  calculator(1, 2); // { sum: 3, mult: 2, div: 1, sub: 0 }
 
   Depois de ter implementado a função calculator, desenvolva uma função que converta objetos em arrays, de chaves, valores ou ambos.
   A sua função deve receber dois parâmetros:
@@ -29,13 +28,31 @@
   - Um objeto no formato { sum: 3, mult: 2, div: 0, sub: -1 };
 
   Comportamento:
-  arrayGenerator('keys', { sum: 3, mult: 2, div: 0, sub: -1 }) // [ 'sum', 'mult', 'div', 'sub' ]
-  arrayGenerator('values', { sum: 3, mult: 2, div: 0, sub: -1 }) // [ 3, 2, 0, -1 ]
-  arrayGenerator('entries', { sum: 3, mult: 2, div: 0, sub: -1 }) // [ [ 'sum', 3 ], [ 'mult', 2 ], [ 'div', 0 ], [ 'sub', -1 ] ]
+  arrayGenerator('keys', { sum: 3, mult: 2, div: 1, sub: 0 }) // [ 'sum', 'mult', 'div', 'sub' ]
+  arrayGenerator('values', { sum: 3, mult: 2, div: 1, sub: 0 }) // [ 3, 2, 1, 0 ]
+  arrayGenerator('entries', { sum: 3, mult: 2, div: 1, sub: 0 }) // [ [ 'sum', 3 ], [ 'mult', 2 ], [ 'div', 1 ], [ 'sub', 0 ] ]
 */
 
-const calculator = (number1, number2) => {};
+const calculator = (number1, number2) => {
+  const num1 = Math.round(number1);
+  const num2 = Math.round(number2);
+  const sum = num1 + num2;
+  const mult = num1 * num2;
+  const div = Math.floor(num1 / num2);
+  const sub = num1 - num2;
+  return { sum, mult, div, sub };
+};
 
-const arrayGenerator = (type, object) => {};
+const arrayGenerator = (type, object) => {
+  if (type === 'keys') {
+    return Object.keys(object);
+  }
+  if (type === 'values') {
+    return Object.values(object);
+  }
+  if (type === 'entries') {
+    return Object.entries(object);
+  }
+};
 
 module.exports = { calculator, arrayGenerator };
